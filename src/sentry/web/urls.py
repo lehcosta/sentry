@@ -270,7 +270,7 @@ urlpatterns += patterns(
     url(r'^organizations/(?P<organization_slug>[\w_-]+)/stats/$', react_page_view,
         name='sentry-organization-stats'),
     url(r'^organizations/(?P<organization_slug>[\w_-]+)/onboarding/$', react_page_view,
-    name='sentry-organization-stats'),
+    name='sentry-organization-onboarding'),
     url(r'^organizations/(?P<organization_slug>[\w_-]+)/teams/(?P<team_slug>[\w_-]+)/remove/$', RemoveTeamView.as_view(),
         name='sentry-remove-team'),
     url(r'^organizations/(?P<organization_slug>[\w_-]+)/teams/new/$', react_page_view),
