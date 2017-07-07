@@ -17,7 +17,10 @@ const Configure = React.createClass({
   render() {
     return (
       <div className="onboarding-Configure">
-        <Waiting />
+        <Waiting           
+          projectId={this.props.project.slug}
+          orgId={this.props.params.orgId} 
+        />
         <ProjectContext
           projectId={this.props.params.projectId}
           orgId={this.props.params.orgId}>
