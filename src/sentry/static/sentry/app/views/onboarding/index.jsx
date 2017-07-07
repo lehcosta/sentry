@@ -6,7 +6,7 @@ import ApiMixin from '../../mixins/apiMixin';
 // import OrganizationActions from '../../actions/organizationActions';
 
 import ProgressNodes from './progress';
-// import {onboardingSteps} from './utils';
+import {onboardingSteps} from './utils';
 import ProjectActions from '../../actions/projectActions';
 
 const OnboardingWizard = React.createClass({
@@ -21,12 +21,17 @@ const OnboardingWizard = React.createClass({
     return {
       loading: true,
       error: false,
-      step: 1,
       platform: '',
       projectName: ''
     };
   },
-  // getProject
+
+  inferStep() {
+    let {projectId} = this.props.params;
+    if (!projectId) return onboardingSteps.project;
+    return onboardingSteps.configure;
+  },
+
   renderStep() {
     const stepProps = {
       next: this.next,
@@ -91,7 +96,7 @@ const OnboardingWizard = React.createClass({
         <DocumentTitle title={'Sentry'} />
         <h1>ONBOARDING</h1>
         <div className="step-container">
-          <ProgressNodes step={this.state.step} />
+          <ProgressNodes step={this.inferStep()} />
           <div>
             <this.renderStep />
           </div>
