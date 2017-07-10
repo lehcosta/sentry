@@ -284,6 +284,10 @@ class ProjectDetailsEndpoint(ProjectEndpoint):
                 project.update_option(
                     'sentry:blacklisted_ips',
                     clean_newline_inputs(options['filters:blacklisted_ips']))
+            if 'filters:releases' in options:
+                project.update_option(
+                    'sentry:releases',
+                    clean_newline_inputs(options['filters:releases']))
 
             self.create_audit_entry(
                 request=request,
