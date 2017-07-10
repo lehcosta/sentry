@@ -16,9 +16,6 @@ const Waiting = React.createClass({
     this.fetchData();
   },
 
-  componentDidMount() {
-    setInterval(() => { this.fetchEventData(); }, 5000);
-  },
 
   fetchData(callback) {
     this.api.request('/internal/options/?query=is:required', {
@@ -41,39 +38,6 @@ const Waiting = React.createClass({
 
   next() {
     this.setState({step: this.state.step + 1});
-  },
-
-  fetchEventData() {
-
-    console.log("Slug is here:" );
-    console.log( this.props.orgId + this.props.projectId);
-    let orgId= this.props.orgId;
-    let projectId= this.props.projectId;
-    //grab the org slug and project slug that have just been created. Passed through props?
-    this.api.request(`/projects/${orgId}/${projectId}/events/`, {
-      method: 'GET',
-      success: data => {
-        // console.log("WHAAAT");
-
-        this.checkFirstEvent(data);
-      },
-      error: () => {
-        this.setState({hasError: true});
-      }
-    });
-
-  },
-
-  checkFirstEvent(data) {
-    console.log('DONEEEE!!!');
-    // Check if there's data
-    if (data){
-      console.log("Data is here")
-    }else{
-      console.log('Not yet')
-    }
-
-    // If there isnt pass
   },
 
   render() {
