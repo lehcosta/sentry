@@ -94,7 +94,6 @@ const OnboardingWizard = React.createClass({
     return (
       <div className="onboarding-container">
         <DocumentTitle title={'Sentry'} />
-        <h1>ONBOARDING</h1>
         <div className="step-container">
           <ProgressNodes step={this.inferStep()} />
           <div>
