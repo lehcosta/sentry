@@ -43,7 +43,13 @@ const Waiting = React.createClass({
   render() {
     return (
       <div className="waiting-indicator">
-        <h1>Waiting for your event</h1>
+        <div className="box awaiting-events">
+            <div className="wrap">
+              <div className="waiting-text col-xs-4 col-md-10"><h2>Waiting for your event</h2></div>
+              <div className="robot"><span className="eye" /></div>
+            </div>
+        </div> 
+
 
       </div>
     );
