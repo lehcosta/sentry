@@ -18,7 +18,7 @@ const Project = React.createClass({
   render() {
     return (
       <div className="onboarding-info">
-        <h2>Select a language or framework</h2>
+        <h2>Choose a language or framework</h2>
         <PlatformPicker {...this.props} />
         <div style={{display: 'flex', height: '3em'}}>
           <div className="client-platform-list">
