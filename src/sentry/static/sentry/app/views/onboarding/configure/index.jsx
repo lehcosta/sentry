@@ -66,7 +66,10 @@ const Configure = React.createClass({
           projectId={this.props.params.projectId}
           orgId={this.props.params.orgId}>
           <ProjectDocsContext>
-            <ProjectInstallPlatform platformData={{}} params={this.props.params} />
+            <ProjectInstallPlatform
+              platformData={{hack: "actually set by ProjectDocsContext, this object is here to avoid proptypes warnings"}}
+              params={this.props.params}
+              linkPath={(orgId,projectId,platform) => `/onboarding/${orgId}/${projectId}/configure/${platform}/`}/>
           </ProjectDocsContext>
         </ProjectContext>
         <div className="btn btn-primary" onClick={this.submit}>
