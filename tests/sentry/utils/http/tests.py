@@ -12,7 +12,7 @@ from sentry.models import Project
 from sentry.testutils import TestCase
 from sentry.utils.http import (
     is_same_domain, is_valid_origin, get_origins, absolute_uri, is_valid_ip,
-    origin_from_request,
+    origin_from_request, is_valid_release,
 )
 
 
@@ -251,6 +251,21 @@ class IsValidIPTestCase(TestCase):
 
     def test_garbage_input(self):
         assert self.is_valid_ip('127.0.0.1', ['lol/bar'])
+
+
+class IsValidReleaseTestCase(TestCase):
+    def is_valid_release(self, version, releases):
+        self.project.update_option('sentry:releases', releases)
+        return is_valid_release(version, self.project)
+
+    def test_not_in_list(self):
+        assert self.is_valid_release('abcdefg', None)
+        assert self.is_valid_release('abcdefg', [])
+        assert self.is_valid_release('abcdefg', ['hijklmn', 'opqrstu', 'vwxyzab'])
+
+    def test_match_list(self):
+        assert not self.is_valid_release('abcdefg', ['abcdefg'])
+        assert not self.is_valid_release('abcdefg', ['hijklmn', 'opqrstu', 'abcdefg'])
 
 
 class OriginFromRequestTestCase(TestCase):
