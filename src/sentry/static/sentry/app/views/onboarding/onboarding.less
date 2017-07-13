@@ -3,6 +3,7 @@
 }
 
 .step-container{
+  max-width: 800px;
   display: flex;
   padding: 10px;
 }
@@ -151,8 +152,7 @@
 }
 
 .platform-picker{
-  max-width: 90%;
-  .nav-tabs{
+  .nav-tabs {
     border-bottom: 1px solid @20;
   }
   .platform-filter{
@@ -161,13 +161,25 @@
 
   }
   .platform-tiles{
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
+
+    .platform-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 105px;
+      &.selected{
+      background-color:  #aeb;
+     }
+    }
+
+    &.client-platform-list li {
+      margin: 0 auto;
+    }
   }
 
-  .platform-tile{
-    &.selected{
-      background-color:  #aeb;
-    }
+  h5{
+    text-align: center;
   }
 }

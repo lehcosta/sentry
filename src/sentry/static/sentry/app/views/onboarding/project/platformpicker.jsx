@@ -3,7 +3,7 @@ import ListLink from '../../../components/listLink';
 import classnames from 'classnames';
 // import {platforms} from '../../../../../../integration-docs/_platforms.json';
 import {flattenedPlatforms} from '../utils';
-import PlatformiconTile from './platformiconTile';
+import PlatformCard from './platformCard';
 
 const categoryList = ['Popular', 'Frontend', 'Backend', 'Mobile', 'All'];
 
@@ -30,7 +30,7 @@ const PlatFormPicker = React.createClass({
       <ul className="client-platform-list platform-tiles">
         {filtered.map((platform, idx) => {
           return (
-            <PlatformiconTile
+            <PlatformCard
               platform={platform.id}
               className={classnames({
                 selected: this.props.platform === platform.id
@@ -54,7 +54,7 @@ const PlatFormPicker = React.createClass({
       <ul className="client-platform-list platform-tiles">
         {filtered.map((platform, idx) => {
           return (
-            <PlatformiconTile
+            <PlatformCard
               platform={platform.id}
               className={classnames({
                 selected: this.props.platform === platform.id
@@ -84,7 +84,7 @@ const PlatFormPicker = React.createClass({
       <ul className="client-platform-list platform-tiles">
         {filtered.map((platform, idx) => {
           return (
-            <PlatformiconTile
+            <PlatformCard
               platform={platform.id}
               className={classnames({
                 selected: this.props.platform === platform.id

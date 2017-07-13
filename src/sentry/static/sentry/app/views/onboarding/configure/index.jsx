@@ -58,20 +58,23 @@ const Configure = React.createClass({
   },
 
   render() {
+    const {orgId, projectId, platform} = this.props.params;
+    if (!platform) {
+      const url = `/${orgId}/${projectId}/getting-started`;
+      browserHistory.push(url);
+    }
     return (
       <div className="onboarding-Configure">
         <Waiting />
-        <ProjectContext
-          projectId={this.props.params.projectId}
-          orgId={this.props.params.orgId}>
+        <ProjectContext projectId={projectId} orgId={orgId}>
           <ProjectDocsContext>
             <ProjectInstallPlatform
               platformData={{
                 hack: 'actually set by ProjectDocsContext, this object is here to avoid proptypes warnings'
               }}
               params={this.props.params}
-              linkPath={(orgId, projectId, platform) =>
-                `/onboarding/${orgId}/${projectId}/configure/${platform}/`}
+              linkPath={(_orgId, _projectId, _platform) =>
+                `/onboarding/${_orgId}/${_projectId}/configure/${_platform}/`}
             />
           </ProjectDocsContext>
         </ProjectContext>

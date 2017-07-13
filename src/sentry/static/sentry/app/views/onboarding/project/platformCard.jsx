@@ -2,6 +2,7 @@ import React from 'react';
 // import {platforms} from '../../../../../../integration-docs/_platforms.json';
 import {flattenedPlatforms} from '../utils';
 import PlatformiconTile from './platformiconTile';
+import classnames from 'classnames';
 
 const PlatformCard = React.createClass({
   propTypes: {
@@ -13,10 +14,10 @@ const PlatformCard = React.createClass({
     const platform = flattenedPlatforms.find(p => p.id === this.props.platform);
     if (!platform) return false;
     return (
-      <div style={{display: 'flex'}}>
+      <span className={classnames('platform-card', this.props.className)}>
         <PlatformiconTile {...this.props} />
-        <h4> {platform.name}</h4>
-      </div>
+        <h5> {platform.name} </h5>
+      </span>
     );
   }
 });
