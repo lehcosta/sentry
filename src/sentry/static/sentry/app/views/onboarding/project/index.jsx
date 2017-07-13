@@ -1,5 +1,5 @@
 import React from 'react';
-import PlatformPicker from './platformpicker';
+import PlatformPicker from './platformPicker';
 import PlatformiconTile from './platformiconTile';
 
 const Project = React.createClass({
@@ -20,7 +20,7 @@ const Project = React.createClass({
       <div className="onboarding-info">
         <h2>Choose a language or framework</h2>
         <PlatformPicker {...this.props} />
-        <div>
+        <div className="project-name">
           <h4> Give your project a name:</h4>
           <PlatformiconTile platform={this.props.platform} />
           <input

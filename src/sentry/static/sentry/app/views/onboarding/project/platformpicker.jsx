@@ -50,8 +50,13 @@ const PlatFormPicker = React.createClass({
     const filtered = languages.filter(platform => {
       return (platform.id + ' ' + platform.platform).includes(this.state.filter);
     });
+    const hasLang = this.props.platform;
+
     return (
-      <ul className="client-platform-list platform-tiles">
+      <ul
+        className={classnames('client-platform-list', 'platform-tiles', {
+          shade: hasLang
+        })}>
         {filtered.map((platform, idx) => {
           return (
             <PlatformCard
@@ -130,9 +135,9 @@ const PlatFormPicker = React.createClass({
           </li>
         </ul>
         {this.renderLanguageList()}
-        <hr />
+        {/* <hr /> */}
         {this.renderExtended()}
-        <hr />
+        {/* <hr /> */}
 
       </div>
     );

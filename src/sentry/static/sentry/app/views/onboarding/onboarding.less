@@ -154,6 +154,7 @@
 .platform-picker{
   .nav-tabs {
     border-bottom: 1px solid @20;
+    margin: 0px;
   }
   .platform-filter{
     border-radius: 5px;
@@ -164,6 +165,7 @@
     margin: auto;
     display: flex;
     flex-wrap: wrap;
+    border-bottom: 1px solid @20;
 
     .platform-card {
       display: flex;
@@ -177,9 +179,20 @@
     &.client-platform-list li {
       margin: 0 auto;
     }
+    &.client-platform-list.shade{
+      background-color: @40;
+      filter: brightness(0.4);
+    }
   }
 
   h5{
     text-align: center;
+  }
+}
+
+.project-name{
+  .platform-tile{
+    display: inline-block;
+    vertical-align: middle;
   }
 }
