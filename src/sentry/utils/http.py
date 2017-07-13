@@ -209,46 +209,39 @@ def is_valid_origin(origin, project=None, allowed=None):
     return False
 
 
-def is_valid_ip(ip_address, project):
+def is_valid_for_processing(value, filter_type, project):
     """
-    Verify that an IP address is not being blacklisted
-    for the given project.
+    Verify that an exception is valid and is not disallowed for the project
+    based on specified filters
+
+    value is the exact value to be checked for validity in the list of project filters
+
+    filter_type is the type of filter and can be:
+    'blacklisted_ips'
+    'releases'
+    'environments'
+    'error_classes'
     """
-    blacklist = project.get_option('sentry:blacklisted_ips')
-    if not blacklist:
+
+    disallowed_options = project.get_option(('sentry:{}').format(filter_type))
+    if not disallowed_options:
         return True
 
-    for addr in blacklist:
+    for option in disallowed_options:
         # We want to error fast if it's an exact match
-        if ip_address == addr:
+        if value.lower() == option:
             return False
 
-        # Check to make sure it's actually a range before
-        try:
-            if '/' in addr and ipaddress.ip_address(
-                    six.text_type(ip_address)) in ipaddress.ip_network(
-                    six.text_type(addr), strict=False):
-                return False
-        except ValueError:
-            # Ignore invalid values here
-            pass
-
-    return True
-
-
-def is_valid_release(release, project):
-    """
-    Verify that a project has not filtered errors from the release
-    """
-
-    invalid_releases = project.get_option('sentry:releases')
-    if not invalid_releases:
-        return True
-
-    for r in invalid_releases:
-        # We want to error fast if it's an exact match
-        if release == r:
-            return False
+        if filter_type == 'blacklisted_ips':
+            # Check to make sure it's actually a range before
+            try:
+                if '/' in option and ipaddress.ip_address(
+                        six.text_type(value)) in ipaddress.ip_network(
+                        six.text_type(option), strict=False):
+                    return False
+            except ValueError:
+                # Ignore invalid values here
+                pass
 
     return True
 
