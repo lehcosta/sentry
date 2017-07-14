@@ -20,7 +20,7 @@ const Project = React.createClass({
       <div className="onboarding-info">
         <h2>Choose a language or framework</h2>
         <PlatformPicker {...this.props} />
-        <div className="project-name">
+        <div className="project-name client-platform">
           <h4> Give your project a name:</h4>
           <PlatformiconTile platform={this.props.platform} />
           <input
