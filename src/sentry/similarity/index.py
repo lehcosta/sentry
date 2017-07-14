@@ -22,12 +22,12 @@ class MinHashIndex(object):
         self.interval = interval
         self.retention = retention
 
-    def query(self, scope, key, indices, timestamp=None):
+    def compare(self, scope, key, indices, timestamp=None):
         if timestamp is None:
             timestamp = int(time.time())
 
         arguments = [
-            'QUERY',
+            'COMPARE',
             timestamp,
             self.bands,
             self.interval,

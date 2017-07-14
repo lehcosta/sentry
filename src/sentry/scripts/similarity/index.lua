@@ -360,7 +360,7 @@ local commands = {
             )
         end
     ),
-    QUERY = takes_configuration(
+    COMPARE = takes_configuration(
         function (configuration, arguments)
             local item_key = arguments[1]
             local indices = table.slice(arguments, 2)
