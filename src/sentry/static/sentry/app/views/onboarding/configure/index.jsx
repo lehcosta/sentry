@@ -59,7 +59,7 @@ const Configure = React.createClass({
 
   render() {
     const {orgId, projectId, platform} = this.props.params;
-    if (!platform) {
+    if (!platform || platform === 'other') {
       const url = `/${orgId}/${projectId}/getting-started`;
       browserHistory.push(url);
     }

@@ -1,5 +1,18 @@
 import {platforms} from '../../../../../integration-docs/_platforms.json';
 
+const additional = platforms.concat({
+  integrations: [
+    {
+      link: 'https://docs.getsentry.com/hosted/clients/',
+      type: 'language',
+      id: 'other',
+      name: 'Other'
+    }
+  ],
+  id: 'other',
+  name: 'Other'
+});
+
 const onboardingSteps = {organization: 0, project: 1, configure: 2};
 
 const stepDescriptions = {
@@ -10,7 +23,7 @@ const stepDescriptions = {
 
 const flattenedPlatforms = [].concat(
   [],
-  ...platforms.map(language => {
+  ...additional.map(language => {
     return language.integrations.map(i => {
       return {...i, language: language.id};
     });

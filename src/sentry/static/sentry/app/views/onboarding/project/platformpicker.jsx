@@ -9,7 +9,7 @@ const categoryList = ['Popular', 'Frontend', 'Backend', 'Mobile', 'All'];
 
 const languages = flattenedPlatforms.filter(p => p.type === 'language');
 
-const PlatFormPicker = React.createClass({
+const PlatformPicker = React.createClass({
   propTypes: {
     setPlatform: React.PropTypes.func,
     platform: React.PropTypes.string
@@ -26,6 +26,7 @@ const PlatFormPicker = React.createClass({
     const filtered = flattenedPlatforms.filter(platform => {
       return (platform.id + ' ' + platform.platform).includes(this.state.filter);
     });
+
     return (
       <ul className="client-platform-list platform-tiles">
         {filtered.map((platform, idx) => {
@@ -134,14 +135,12 @@ const PlatFormPicker = React.createClass({
             />
           </li>
         </ul>
-        {this.renderLanguageList()}
-        {/* <hr /> */}
-        {this.renderExtended()}
-        {/* <hr /> */}
-
+        {this.renderPlatformList()}
+        {/* {this.renderLanguageList()} */}
+        {/* {this.renderExtended()} */}
       </div>
     );
   }
 });
 
-export default PlatFormPicker;
+export default PlatformPicker;
