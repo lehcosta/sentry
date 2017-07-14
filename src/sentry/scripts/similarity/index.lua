@@ -317,6 +317,33 @@ local function parse_signatures(configuration, arguments)
     return entries.completed
 end
 
+local function fetch_candidates(configuration, time_series, index, frequencies)
+    local candidates = {}  -- acts as a set
+    for band, buckets in ipairs(frequencies) do
+        for bucket, count in pairs(buckets) do
+            for _, time in ipairs(time_series) do
+                -- Fetch all other items that have been added to
+                -- the same bucket in this band during this time
+                -- period.
+                local members = redis.call(
+                    'SMEMBERS',
+                    get_bucket_membership_key(
+                        configuration.scope,
+                        index,
+                        time,
+                        band,
+                        bucket
+                    )
+                )
+                for _, member in ipairs(members) do
+                    candidates[member] = true
+                end
+            end
+        end
+    end
+    return candidates
+end
+
 
 -- Command Parsing
 
@@ -426,33 +453,6 @@ local commands = {
                 )
             end
 
-            local fetch_candidates = function (index, frequencies)
-                local candidates = {}  -- acts as a set
-                for band, buckets in ipairs(frequencies) do
-                    for bucket, count in pairs(buckets) do
-                        for _, time in ipairs(time_series) do
-                            -- Fetch all other items that have been added to
-                            -- the same bucket in this band during this time
-                            -- period.
-                            local members = redis.call(
-                                'SMEMBERS',
-                                get_bucket_membership_key(
-                                    configuration.scope,
-                                    index,
-                                    time,
-                                    band,
-                                    bucket
-                                )
-                            )
-                            for _, member in ipairs(members) do
-                                candidates[member] = true
-                            end
-                        end
-                    end
-                end
-                return candidates
-            end
-
             return table.imap(
                 indices,
                 function (index)
@@ -462,7 +462,7 @@ local commands = {
 
                     -- Then, find all iterms that also exist within those
                     -- buckets and fetch their frequencies.
-                    local candidates = fetch_candidates(index, item_frequencies)
+                    local candidates = fetch_candidates(configuration, time_series, index, item_frequencies)
                     local candidate_frequencies = {}
                     for candidate_key, _ in pairs(candidates) do
                         candidate_frequencies[candidate_key] = fetch_bucket_frequencies(
