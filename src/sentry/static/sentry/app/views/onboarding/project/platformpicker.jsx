@@ -26,13 +26,22 @@ const PlatformPicker = React.createClass({
   renderPlatformList() {
     let {tab} = this.state;
 
-    const filtered = flattenedPlatforms.filter(platform => {
-      return (
-        (tab === 'All' ||
-        categoryLists[tab].includes(platform.id)) &&
-        (platform.id + ' ' + platform.platform).includes(this.state.filter)
-      );
-    });
+    const tabSubset = flattenedPlatforms.filter(
+      platform => tab === 'All' || categoryLists[tab].includes(platform.id)
+    );
+
+    let subsetMatch = platform =>
+      (platform.id + ' ' + platform.platform).includes(this.state.filter);
+
+    let filtered = tabSubset.filter(subsetMatch);
+
+    if (!filtered.length) {
+      filtered = flattenedPlatforms.filter(subsetMatch);
+    }
+
+    if (!filtered.length) {
+      return <p>Not finding your platform? we have a lot of community SDKs as well.</p>;
+    }
 
     return (
       <ul className="client-platform-list platform-tiles">
