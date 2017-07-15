@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 import {Client} from 'app/api';
@@ -20,8 +20,7 @@ describe('Configure should render good', function() {
       next: () => {},
       params: {
         projectId: 'testProject',
-        orgId: 'testOrg',
-        platform: 'node'
+        orgId: 'testOrg'
       }
     };
 
@@ -29,8 +28,9 @@ describe('Configure should render good', function() {
       let props = {
         ...baseProps
       };
+      props.params.platform = 'node';
 
-      let wrapper = mount(<Configure {...props} />, {
+      let wrapper = shallow(<Configure {...props} />, {
         context: {organization: {id: '1337', slug: 'testOrg', teams: [['testProject']]}}
       });
 
@@ -52,13 +52,18 @@ describe('Configure should render good', function() {
 
     it('should redirect to if no matching platform', function() {
       let props = {
-        ...baseProps,
-        platform: ''
+        ...baseProps
       };
+      props.params.platform = 'other';
 
-      this.sandbox.stub(Configure.prototype, 'redirectToNeutralDocs');
+      console.log(Configure.prototype.__reactAutoBindPairs);
+      let handleSubmitStub = this.sandbox.stub(
+        Configure.prototype.__reactAutoBindMap,
+        'redirectToNeutralDocs',
+        () => {}
+      );
 
-      let wrapper = mount(<Configure {...props} />, {
+      let wrapper = shallow(<Configure {...props} />, {
         context: {
           organization: {
             id: '1337',
@@ -68,20 +73,20 @@ describe('Configure should render good', function() {
         }
       });
 
-      const component = wrapper.instance();
+      // const component = wrapper.instance();
 
-      let handleSubmitStub = this.sandbox.stub(
-        component,
-        'redirectToNeutralDocs',
-        () => {}
-      );
+      // let handleSubmitStub = this.sandbox.stub(
+      //   component.prototype,
+      //   'redirectToNeutralDocs',
+      //   () => {}
+      // );
 
-      component.forceUpdate();
-      wrapper.update();
+      // component.forceUpdate();
+
+      // wrapper.update();
       expect(toJson(wrapper)).toMatchSnapshot();
-      expect(handleSubmitStub.callCount).toEqual(1);
 
-      // expect(Configure.prototype.redirectToNeutralDocs.calledOnce).toBeTruthy();
+      expect(handleSubmitStub.callCount).toEqual(1);
     });
   });
 });
