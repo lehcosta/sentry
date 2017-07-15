@@ -2,7 +2,7 @@ import React from 'react';
 import ListLink from '../../../components/listLink';
 import classnames from 'classnames';
 // import {platforms} from '../../../../../../integration-docs/_platforms.json';
-import {flattenedPlatforms} from '../utils';
+import {flattenedPlatforms, popular} from '../utils';
 import PlatformCard from './platformCard';
 
 const categoryList = ['Popular', 'Frontend', 'Backend', 'Mobile', 'All'];
@@ -23,8 +23,12 @@ const PlatformPicker = React.createClass({
   },
 
   renderPlatformList() {
+    // let subset =
     const filtered = flattenedPlatforms.filter(platform => {
-      return (platform.id + ' ' + platform.platform).includes(this.state.filter);
+      return (
+        popular.includes(platform.id) ||
+        (platform.id + ' ' + platform.platform).includes(this.state.filter)
+      );
     });
 
     return (

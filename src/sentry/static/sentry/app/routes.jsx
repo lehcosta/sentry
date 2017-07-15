@@ -152,7 +152,7 @@ function routes() {
             component={errorHandler(OnboardingConfigure)}
           />
           <Route
-            path=":projectId/configure/"
+            path=":projectId/configure/" // for case when no platform is select
             component={errorHandler(OnboardingConfigure)}
           />
         </Route>

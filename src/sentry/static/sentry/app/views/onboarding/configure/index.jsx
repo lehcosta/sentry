@@ -16,6 +16,15 @@ const Configure = React.createClass({
 
   mixins: [ApiMixin],
 
+  componentWillMount() {
+    const {platform} = this.props.params;
+    //TODO(maxbittker) redirect if platform is not known.
+    if (!platform || platform === 'other') {
+      console.log('XXXXXXXXXXXXX');
+      this.redirectToNeutralDocs();
+    }
+  },
+
   componentDidMount() {
     this.timer = setInterval(() => {
       this.fetchEventData();
@@ -57,12 +66,16 @@ const Configure = React.createClass({
     this.redirectUrl();
   },
 
+  redirectToNeutralDocs() {
+    const {orgId, projectId} = this.props.params;
+    console.log('BBBBBBBB');
+    const url = `/${orgId}/${projectId}/getting-started`;
+    browserHistory.push(url);
+  },
+
   render() {
-    const {orgId, projectId, platform} = this.props.params;
-    if (!platform || platform === 'other') {
-      const url = `/${orgId}/${projectId}/getting-started`;
-      browserHistory.push(url);
-    }
+    const {orgId, projectId} = this.props.params;
+
     return (
       <div className="onboarding-Configure">
         <Waiting />

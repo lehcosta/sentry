@@ -1,4 +1,14 @@
 import {platforms} from '../../../../../integration-docs/_platforms.json';
+// let platforms = [];
+const popular = [
+  'javascript',
+  'python-django',
+  'ruby-rails',
+  'node-express',
+  'php-laravel',
+  'php-symfony2',
+  'java-log4j'
+];
 
 const additional = platforms.concat({
   integrations: [
@@ -30,4 +40,4 @@ const flattenedPlatforms = [].concat(
   })
 );
 
-export {onboardingSteps, stepDescriptions, flattenedPlatforms};
+export {onboardingSteps, stepDescriptions, flattenedPlatforms, popular};
