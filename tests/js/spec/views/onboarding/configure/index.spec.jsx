@@ -56,12 +56,7 @@ describe('Configure should render good', function() {
       };
       props.params.platform = 'other';
 
-      console.log(Configure.prototype.__reactAutoBindPairs);
-      let handleSubmitStub = this.sandbox.stub(
-        Configure.prototype.__reactAutoBindMap,
-        'redirectToNeutralDocs',
-        () => {}
-      );
+      let handleSubmitStub = sinon.stub(Configure.prototype, 'redirectToNeutralDocs');
 
       let wrapper = shallow(<Configure {...props} />, {
         context: {
@@ -73,17 +68,11 @@ describe('Configure should render good', function() {
         }
       });
 
-      // const component = wrapper.instance();
+      const component = wrapper.instance();
 
-      // let handleSubmitStub = this.sandbox.stub(
-      //   component.prototype,
-      //   'redirectToNeutralDocs',
-      //   () => {}
-      // );
+      component.forceUpdate();
+      wrapper.update();
 
-      // component.forceUpdate();
-
-      // wrapper.update();
       expect(toJson(wrapper)).toMatchSnapshot();
 
       expect(handleSubmitStub.callCount).toEqual(1);
