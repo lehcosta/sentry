@@ -2,10 +2,11 @@ import React from 'react';
 import ListLink from '../../../components/listLink';
 import classnames from 'classnames';
 // import {platforms} from '../../../../../../integration-docs/_platforms.json';
-import {flattenedPlatforms, popular} from '../utils';
+import {flattenedPlatforms, categoryLists} from '../utils';
 import PlatformCard from './platformCard';
 
-const categoryList = ['Popular', 'Frontend', 'Backend', 'Mobile', 'All'];
+const categoryList = Object.keys(categoryLists).concat('All');
+//  {'Popular', 'Frontend', 'Backend', 'Mobile', 'All'];
 
 const languages = flattenedPlatforms.filter(p => p.type === 'language');
 
@@ -17,16 +18,18 @@ const PlatformPicker = React.createClass({
 
   getInitialState() {
     return {
-      tab: categoryList[4],
+      tab: categoryList[2],
       filter: ''
     };
   },
 
   renderPlatformList() {
-    // let subset =
+    let {tab} = this.state;
+
     const filtered = flattenedPlatforms.filter(platform => {
       return (
-        popular.includes(platform.id) ||
+        (tab === 'All' ||
+        categoryLists[tab].includes(platform.id)) &&
         (platform.id + ' ' + platform.platform).includes(this.state.filter)
       );
     });
