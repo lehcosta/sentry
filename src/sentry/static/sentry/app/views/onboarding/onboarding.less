@@ -149,8 +149,8 @@
 
 .platform-picker{
   .nav-tabs {
-    border-bottom: 1px solid @20;
-    margin: 0px;
+    border-bottom: 1px solid @trim;
+    margin: 0 0 10px;
   }
   .platform-filter-container {
     background: #fff;
@@ -179,15 +179,18 @@
     margin: auto;
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 1px solid @20;
+    border-bottom: 1px solid @trim;
+    padding: 0 0 10px;
 
     .platform-card {
       display: flex;
       flex-direction: column;
       width: 115px;
+      padding: 0 0 14px;
 
-      &.selected{
-        background-color:  #aeb;
+      &.selected {
+        background: darken(@alert-info-bg-color, 2);
+        border-radius: 4px;
      }
     }
 
@@ -200,8 +203,9 @@
     }
   }
 
-  h5{
+  h5 {
     text-align: center;
+    margin: 0;
   }
 }
 
